@@ -1,31 +1,39 @@
 {
-  "name": "git-pull-all",
-  "version": "0.1.4",
-  "description": "Concurrent git pull executor for multiple git repositories.",
+  "name": "run-subdir",
+  "version": "0.0.0",
+  "description": "",
+  "preferGlobal": true,
   "bin": {
-    "git-pull-all": "cli.js"
+    "rsd": "cli.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MohannadNaj/run-subdir.git"
+  },
+  "keywords": [
+    "run-subdir"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MohannadNaj/run-subdir/issues"
+  },
+  "homepage": "https://github.com/MohannadNaj/run-subdir#readme",
   "scripts": {
-    "lint": "jshint *.js"
+    "lint": "standard --fix"
   },
   "dependencies": {
-    "async": "~0.9.0"
+    "async": "^2.6.2"
   },
   "devDependencies": {
-    "jshint": "^2.6.0"
+    "ava": "^1.2.1",
+    "nyc": "^13.3.0",
+    "standard": "^12.0.1"
   },
-  "repostitory": {
-    "type": "git",
-    "url": "https://github.com/tatsuyaoiw/git-pull-all.git"
-  },
-  "bugs": {
-    "url": "https://github.com/tatsuyaoiw/git-pull-all/issues"
-  },
-  "homepage": "https://github.com/tatsuyaoiw/git-pull-all",
-  "keywords": [
-    "git",
-    "pull"
+  "contributors": [
+    "Tatsuya Oiwa <tatsuyaoiw@gmail.com>",
+    "Mohannad Najjar <mohannad.najjar@mail.com>"
   ],
-  "author": "Tatsuya Oiwa <tatsuyaoiw@gmail.com>",
-  "license": "MIT"
+  "engines": {
+    "node": ">=10.0.0"
+  }
 }
