@@ -25,7 +25,8 @@
     "lint": "standard --fix"
   },
   "files": [
-    "src", "bin"
+    "src",
+    "bin"
   ],
   "ava": {
     "files": [
