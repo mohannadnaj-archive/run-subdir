@@ -4,7 +4,7 @@
   "description": "",
   "preferGlobal": true,
   "bin": {
-    "rsd": "cli.js"
+    "rsd": "bin/cli.js"
   },
   "repository": {
     "type": "git",
@@ -19,7 +19,41 @@
   },
   "homepage": "https://github.com/MohannadNaj/run-subdir#readme",
   "scripts": {
+    "test": "nyc ava --verbose --serial",
+    "test:watch": "nyc ava --verbose --serial --watch",
+    "ava:watch": "ava --verbose --serial --watch",
     "lint": "standard --fix"
+  },
+  "files": [
+    "src", "bin"
+  ],
+  "ava": {
+    "files": [
+      "tests/*.spec.js"
+    ],
+    "sources": [
+      "src/**/*",
+      "bin/**/*"
+    ]
+  },
+  "nyc": {
+    "include": [
+      "src/**/*",
+      "bin/**/*"
+    ],
+    "exclude": [
+      "**/tests/**/*"
+    ],
+    "sourceMap": true,
+    "instrument": true,
+    "require": [],
+    "all": true,
+    "reporter": [
+      "json",
+      "lcov",
+      "html",
+      "text"
+    ]
   },
   "dependencies": {
     "async": "^2.6.2"
