@@ -58,7 +58,7 @@ function readFiles(dir, callback) {
   });
 }
 
-function pullFromDirectory(parent) {
+function runFromDirectory(parent) {
   readFiles(parent, function(err, files) {
     if (err) {
       return console.log(err.message);
@@ -72,6 +72,6 @@ function pullFromDirectory(parent) {
 
 module.exports = function(parent, _command) {
   command = _command
-  pullFromDirectory(parent);
+  runFromDirectory(parent);
   console.log('\x1b[42m' + command + '\x1b[0m UTC:' + new Date().toISOString().replace('T', ' ').substr(0, 19));
 };
