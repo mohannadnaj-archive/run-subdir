@@ -27,15 +27,15 @@ function run(command, options, callback) {
 
 function runCommand(dir, callback) {
   run(command, { cwd: dir }, function(err, stdout, stderr) {
+    console.log('\n\x1b[36m%s\x1b[0m', basename(dir) + '/');
     if (err) {
       var message = [
         'Something went wrong on "' + dir + '" ...',
         'Command: ' + command,
-        'Message: ' + err.message
+        'Message: \x1b[31m' + err.message + '\x1b[0m'
       ].join('\n');
-      return callback(new Error(message));
+      return console.log(message);
     }
-    console.log('\x1b[36m%s\x1b[0m', basename(dir) + '/');
     if (stdout) {
       process.stdout.write(stdout);
     }
@@ -65,7 +65,7 @@ function pullFromDirectory(parent) {
     }
 
     async.filter(files, isDirectory, function(err, results) {
-      async.each(results, runCommand, function(err) {});
+      async.each(results, runCommand);
     });
   });
 }
@@ -73,5 +73,5 @@ function pullFromDirectory(parent) {
 module.exports = function(parent, _command) {
   command = _command
   pullFromDirectory(parent);
-  console.log('Done!');
+  console.log('\x1b[42m' + command + '\x1b[0m UTC:' + new Date().toISOString().replace('T', ' ').substr(0, 19));
 };
