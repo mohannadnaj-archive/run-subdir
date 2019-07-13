@@ -4,7 +4,8 @@
   "description": "",
   "preferGlobal": true,
   "bin": {
-    "rsd": "bin/cli.js"
+    "rsd": "bin/cli.js",
+    "run-subdir": "bin/cli.js"
   },
   "repository": {
     "type": "git",
