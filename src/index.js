@@ -1,4 +1,4 @@
-var exec = require('child_process').exec;
+var exec = null;
 var fs = require('fs');
 var join = require('path').join;
 var basename = require('path').basename;
@@ -7,7 +7,7 @@ var async = require('async');
 var command = '';
 
 function isDirectory(file, callback) {
-  fs.stat(file, function(err, stats) {
+  return fs.stat(file, function(err, stats) {
     if (err) {
       var message = [
         'Something went wrong on "' + file + '"',
@@ -16,17 +16,17 @@ function isDirectory(file, callback) {
       console.log(message);
       return callback(null, false);
     }
-    callback(null, stats.isDirectory());
+    return callback(null, stats.isDirectory());
   });
 }
 
 function run(command, options, callback) {
   options = options || {};
-  exec(command, options, callback);
+  return exec(command, options, callback);
 }
 
 function runCommand(dir, callback) {
-  run(command, { cwd: dir }, function(err, stdout, stderr) {
+  return run(command, { cwd: dir }, function(err, stdout, stderr) {
     console.log('\n\x1b[36m%s\x1b[0m', basename(dir) + '/');
     if (err) {
       var message = [
@@ -42,12 +42,12 @@ function runCommand(dir, callback) {
     if (stderr) {
       process.stdout.write(stderr);
     }
-    callback();
+    return callback();
   });
 }
 
 function readFiles(dir, callback) {
-  fs.readdir(dir, function(err, children) {
+  return fs.readdir(dir, function(err, children) {
     if (err) {
       return callback(err);
     }
@@ -59,19 +59,24 @@ function readFiles(dir, callback) {
 }
 
 function runFromDirectory(parent) {
-  readFiles(parent, function(err, files) {
+   return readFiles(parent, function(err, files) {
     if (err) {
       return console.log(err.message);
     }
 
     async.filter(files, isDirectory, function(err, results) {
-      async.each(results, runCommand);
+      runCommandInEach(results)
     });
   });
 }
 
-module.exports = function(parent, _command) {
+function runCommandInEach(results) {
+  async.each(results, runCommand);
+}
+
+module.exports = function(parent, _command, execFunction) {
+  exec = execFunction
   command = _command
-  runFromDirectory(parent);
   console.log('\x1b[42m' + command + '\x1b[0m UTC:' + new Date().toISOString().replace('T', ' ').substr(0, 19));
+  return runFromDirectory(parent);
 };
