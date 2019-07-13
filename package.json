@@ -1,6 +1,6 @@
 {
   "name": "run-subdir",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "",
   "preferGlobal": true,
   "bin": {
